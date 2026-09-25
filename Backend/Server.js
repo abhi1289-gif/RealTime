@@ -5,16 +5,39 @@ import { Server } from "socket.io"
 
 const app = express()
 
-app.use(cors())
+const FRONTEND_URL =
+  process.env.FRONTEND_URL || "http://localhost:5173"
+
+
+// =========================
+// CORS
+// =========================
+
+app.use(
+  cors({
+    origin: FRONTEND_URL,
+  })
+)
+
+
+// =========================
+// HTTP SERVER
+// =========================
 
 const server = http.createServer(app)
 
+
+// =========================
+// SOCKET.IO
+// =========================
+
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: FRONTEND_URL,
     methods: ["GET", "POST"],
   },
 })
+
 
 // socket.id -> roomId
 const userRooms = new Map()
@@ -48,18 +71,23 @@ io.on("connection", (socket) => {
 
 
     // Get all users in the room
-    const room = io.sockets.adapter.rooms.get(roomId)
+    const room =
+      io.sockets.adapter.rooms.get(roomId)
 
     const users = room
       ? Array.from(room).map((userId) => ({
           id: userId,
-          username: userNames.get(userId) || "Guest",
+          username:
+            userNames.get(userId) || "Guest",
         }))
       : []
 
 
     // Send users to everyone
-    io.to(roomId).emit("room-users", users)
+    io.to(roomId).emit(
+      "room-users",
+      users
+    )
 
 
     // If room already has code,
@@ -72,6 +100,7 @@ io.on("connection", (socket) => {
       )
 
     }
+
   })
 
 
@@ -79,21 +108,30 @@ io.on("connection", (socket) => {
   // CODE CHANGE
   // =========================
 
-  socket.on("code-change", ({ roomId, code }) => {
+  socket.on(
+    "code-change",
+    ({ roomId, code }) => {
 
-    console.log(
-      `Code changed in room: ${roomId}`
-    )
+      console.log(
+        `Code changed in room: ${roomId}`
+      )
 
-    // Save latest code
-    roomCodes.set(roomId, code)
+      // Save latest code
+      roomCodes.set(
+        roomId,
+        code
+      )
 
-    // Send to everyone except sender
-    socket.to(roomId).emit(
-      "code-update",
-      code
-    )
-  })
+      // Send to everyone except sender
+      socket
+        .to(roomId)
+        .emit(
+          "code-update",
+          code
+        )
+
+    }
+  )
 
 
   // =========================
@@ -102,9 +140,12 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
 
-    const roomId = userRooms.get(socket.id)
+    const roomId =
+      userRooms.get(socket.id)
 
-    const username = userNames.get(socket.id)
+    const username =
+      userNames.get(socket.id)
+
 
     console.log(
       `${username || "User"} disconnected:`,
@@ -118,12 +159,15 @@ io.on("connection", (socket) => {
       userNames.delete(socket.id)
 
 
-      const room = io.sockets.adapter.rooms.get(roomId)
+      const room =
+        io.sockets.adapter.rooms.get(roomId)
+
 
       const users = room
         ? Array.from(room).map((userId) => ({
             id: userId,
-            username: userNames.get(userId) || "Guest",
+            username:
+              userNames.get(userId) || "Guest",
           }))
         : []
 
@@ -136,17 +180,33 @@ io.on("connection", (socket) => {
 
       // Delete empty room's code
       if (!room || room.size === 0) {
+
         roomCodes.delete(roomId)
+
       }
+
     }
+
   })
-})
-
-
-server.listen(5000, () => {
-
-  console.log(
-    "Socket.IO server running on port 5000"
-  )
 
 })
+
+
+// =========================
+// START SERVER
+// =========================
+
+const PORT =
+  process.env.PORT || 5000
+
+server.listen(
+  PORT,
+  "0.0.0.0",
+  () => {
+
+    console.log(
+      `Socket.IO server running on port ${PORT}`
+    )
+
+  }
+)
