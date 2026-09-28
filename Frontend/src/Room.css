@@ -69,18 +69,12 @@
 
 
 .room-info {
-  position: absolute;
-
-  left: 50%;
-
-  transform: translateX(-50%);
-
   display: flex;
-  align-items: center;
-
-  gap: 9px;
-
-  font-size: 12px;
+  position: static;
+  transform: none;
+  margin-left: auto;
+  margin-right: 10px;
+  gap: 0;
 }
 
 
@@ -120,6 +114,38 @@
   cursor: pointer;
 
   transition: all 0.2s ease;
+}
+
+.room-code-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 7px;
+  background: rgba(255,255,255,0.04);
+  color: #9ca3af;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.room-code-button:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.15);
+}
+
+.room-code-button .room-id {
+  padding: 0;
+  background: transparent;
+  color: #d1d5db;
+  font-family: monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.copy-text {
+  font-size: 9px;
+  color: #6b7280;
 }
 
 .copy-button:hover {
@@ -575,6 +601,18 @@
     overflow: hidden;
   }
 
+  .room-code-button {
+    padding: 5px 7px;
+    gap: 5px;
+  }
+
+  .room-code-button .room-id {
+    font-size: 10px;
+  }
+
+  .copy-text {
+    font-size: 8px;
+  }
 
   /* =========================
      HEADER
@@ -622,35 +660,34 @@
 
   .room-sidebar {
     width: 100%;
-    height: 125px;
-    min-height: 125px;
+    height: 100px;
+    min-height: 100px;
     flex-shrink: 0;
-
     border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255,255,255,.08);
   }
 
   .sidebar-header {
-    height: 40px;
+    height: 36px;
     padding: 0 14px;
   }
 
   .users {
     display: flex;
     gap: 8px;
-    padding: 7px 10px;
+    padding: 6px 10px;
     overflow-x: auto;
     overflow-y: hidden;
   }
 
   .user {
-    min-width: 150px;
-    padding: 7px;
+    min-width: 135px;
+    padding: 6px;
   }
 
   .avatar {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
   }
 
   .user-name {
@@ -685,10 +722,11 @@
     height: 42px;
   }
 
-  .file-tab {
-    padding: 0 12px;
-    font-size: 11px;
-  }
+.file-tab {
+  padding: 0 12px;
+  font-size: 11px;
+  gap: 7px;
+}
 
   .editor-actions {
     gap: 7px;
@@ -699,10 +737,11 @@
     display: none;
   }
 
-  .run-button {
-    padding: 6px 10px;
-    font-size: 10px;
-  }
+.run-button {
+  padding: 6px 11px;
+  font-size: 10px;
+  border-radius: 6px;
+}
 
 
   /* =========================
@@ -719,10 +758,10 @@
      TERMINAL
   ========================= */
 
-  .terminal {
-    height: 110px;
-    flex-shrink: 0;
-  }
+.terminal {
+  height: 90px;
+  flex-shrink: 0;
+}
 
   .terminal-header {
     height: 32px;

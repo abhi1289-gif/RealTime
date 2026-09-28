@@ -246,24 +246,14 @@ function Room() {
 
 
         <div className="room-info">
+          <span className="room-label">Room</span>
 
-          <span className="room-label">
-            Room
-          </span>
-
-          <span className="room-id">
-            {roomId}
-          </span>
-
-          <button
-            className="copy-button"
-            onClick={copyRoomId}
-          >
-            {copied
-              ? "Copied!"
-              : "Copy"}
+          <button className="room-code-button" onClick={copyRoomId}>
+            <span className="room-id">{roomId}</span>
+            <span className="copy-text">
+              {copied ? "Copied!" : "Copy"}
+            </span>
           </button>
-
         </div>
 
 
