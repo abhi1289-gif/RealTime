@@ -250,6 +250,7 @@ function Room() {
 
           <button className="room-code-button" onClick={copyRoomId}>
             <span className="room-id">{roomId}</span>
+
             <span className="copy-text">
               {copied ? "Copied!" : "Copy"}
             </span>

@@ -1,86 +1,94 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import './Home.css'
-import { useLocation } from 'react-router-dom'
+import React from "react"
+import { useLocation, useNavigate } from "react-router-dom"
+import "./CreateRoom.css"
+
+function generateRoomCode() {
+  const characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+
+  let code = ""
+
+  for (let i = 0; i < 6; i++) {
+    code += characters.charAt(
+      Math.floor(Math.random() * characters.length)
+    )
+  }
+
+  return code
+}
 
 function CreateRoom() {
   const navigate = useNavigate()
-
   const location = useLocation()
 
-const username = location.state?.username || 'Guest'  
+  const username =
+    location.state?.username ||
+    sessionStorage.getItem("username") ||
+    "Guest"
 
-  const generateRoomCode = () => {
-    const characters = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+  const handleCreateRoom = () => {
+    const roomCode = generateRoomCode()
 
-    let code = ''
+    sessionStorage.setItem("username", username)
 
-    for (let i = 0; i < 6; i++) {
-      code += characters.charAt(
-        Math.floor(Math.random() * characters.length)
-      )
-    }
-
-    return code
+    navigate(`/room/${roomCode}`, {
+      state: {
+        username,
+      },
+    })
   }
 
-const handleCreateRoom = () => {
-
-  const roomCode = generateRoomCode()
-
-  sessionStorage.setItem(
-    "username",
-    username
-  )
-
-  navigate(`/room/${roomCode}`, {
-    state: {
-      username
-    }
-  })
-
-}
-
   return (
-    <div className="home">
+    <div className="create-room-page">
 
-      <header className="home-header">
+      <header className="create-header">
 
-        <div className="logo">
-          <div className="logo-icon">R</div>
+        <div className="create-logo">
+          <div className="create-logo-icon">
+            R
+          </div>
+
           <span>RealTime</span>
         </div>
 
         <button
-          className="back-button"
-          onClick={() => navigate('/')}
+          className="create-back"
+          onClick={() => navigate("/")}
         >
           ← Home
         </button>
 
       </header>
 
+
       <main className="create-room-content">
 
         <div className="create-room-card">
 
-          <div className="card-icon create-icon">
+          <div className="create-card-icon">
             +
           </div>
 
-          <h1>Create a Room</h1>
+          <h1>
+            Create a <span>Room</span>
+          </h1>
 
           <p>
-            Start a new collaborative coding session and invite
-            your teammates to work together in a shared editor.
+            Start a new collaborative coding session
+            and invite your teammates to work together
+            in a shared real-time editor.
           </p>
 
           <button
-            className="room-button create-button"
+            className="create-room-button"
             onClick={handleCreateRoom}
           >
             Create Room
           </button>
+
+          <div className="room-code-hint">
+            <span className="room-code-hint-dot"></span>
+            A unique room code will be generated
+          </div>
 
         </div>
 

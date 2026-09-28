@@ -1,39 +1,63 @@
+/* =========================================================
+   GLOBAL
+========================================================= */
+
 * {
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
 .room {
   width: 100%;
-  height: 100vh;
-
-  background: #080b10;
-
-  color: #ffffff;
+  height: 100dvh;
 
   display: flex;
   flex-direction: column;
+
+  background: #080b10;
+  color: #ffffff;
 
   overflow: hidden;
 }
 
 
-/* ================= HEADER ================= */
+/* =========================================================
+   HEADER
+========================================================= */
 
 .room-header {
+  position: relative;
+
+  width: 100%;
   height: 60px;
+  min-height: 60px;
 
-  flex-shrink: 0;
-
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
 
   padding: 0 20px;
 
+  background: #0d1218;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 
-  background: #0d1218;
+  z-index: 10;
 }
 
+
+/* LOGO */
 
 .room-logo {
   display: flex;
@@ -41,11 +65,13 @@
 
   gap: 10px;
 
+  color: #f1f5f9;
+
   font-size: 16px;
-
   font-weight: 600;
-}
 
+  justify-self: start;
+}
 
 .room-logo-icon {
   width: 32px;
@@ -55,7 +81,7 @@
   align-items: center;
   justify-content: center;
 
-  border-radius: 8px;
+  border-radius: 9px;
 
   background: linear-gradient(
     135deg,
@@ -63,117 +89,112 @@
     #8b5cf6
   );
 
+  color: white;
+
   font-size: 13px;
   font-weight: 700;
+
+  box-shadow:
+    0 4px 15px rgba(59, 130, 246, 0.25);
 }
 
+
+/* ROOM CODE */
 
 .room-info {
   display: flex;
-  position: static;
-  transform: none;
-  margin-left: auto;
-  margin-right: 10px;
-  gap: 0;
-}
+  align-items: center;
+  justify-content: center;
 
+  gap: 8px;
+
+  white-space: nowrap;
+
+  justify-self: center;
+}
 
 .room-label {
-  color: #656d7b;
-}
+  color: #6b7280;
 
-
-.room-id {
-  padding: 5px 9px;
-
-  border-radius: 6px;
-
-  background: rgba(255, 255, 255, 0.05);
-
-  color: #d1d5db;
-
-  font-family: monospace;
-
-  letter-spacing: 1px;
-}
-
-
-.copy-button {
-  padding: 5px 9px;
-
-  border: 1px solid rgba(255, 255, 255, 0.08);
-
-  border-radius: 5px;
-
-  background: rgba(255, 255, 255, 0.03);
-
-  color: #7c8798;
-
-  font-size: 10px;
-
-  cursor: pointer;
-
-  transition: all 0.2s ease;
+  font-size: 11px;
+  font-weight: 500;
 }
 
 .room-code-button {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 8px;
-  border: 1px solid rgba(255,255,255,0.08);
+
+  gap: 8px;
+
+  padding: 6px 9px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 7px;
-  background: rgba(255,255,255,0.04);
+
+  background: rgba(255, 255, 255, 0.035);
+
   color: #9ca3af;
+
   cursor: pointer;
-  transition: all 0.2s ease;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .room-code-button:hover {
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.07);
+
+  border-color: rgba(255, 255, 255, 0.16);
+
+  transform: translateY(-1px);
 }
 
-.room-code-button .room-id {
+.room-code-button:active {
+  transform: translateY(0);
+}
+
+.room-id {
   padding: 0;
+
   background: transparent;
-  color: #d1d5db;
+
+  color: #e5e7eb;
+
   font-family: monospace;
+
   font-size: 11px;
-  letter-spacing: 1px;
+  font-weight: 600;
+
+  letter-spacing: 1.2px;
 }
 
 .copy-text {
-  font-size: 9px;
   color: #6b7280;
+
+  font-size: 9px;
+  font-weight: 500;
 }
 
-.copy-button:hover {
-  color: #ffffff;
 
-  background: rgba(255, 255, 255, 0.07);
-
-  border-color: rgba(255, 255, 255, 0.15);
-}
-
+/* STATUS */
 
 .room-status {
-  margin-left: auto;
-
   display: flex;
   align-items: center;
 
   gap: 7px;
 
+  justify-self: end;
+
   color: #4ade80;
 
   font-size: 10px;
-
   font-weight: 600;
 
   letter-spacing: 1px;
 }
-
 
 .status-dot {
   width: 7px;
@@ -184,25 +205,33 @@
   background: #4ade80;
 
   box-shadow:
-    0 0 8px rgba(74, 222, 128, 0.7);
+    0 0 7px rgba(74, 222, 128, 0.7);
 }
 
 
-/* ================= MAIN ================= */
+/* =========================================================
+   MAIN
+========================================================= */
 
 .room-main {
   flex: 1;
 
   min-height: 0;
+  min-width: 0;
 
   display: flex;
+
+  overflow: hidden;
 }
 
 
-/* ================= SIDEBAR ================= */
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
 .room-sidebar {
   width: 250px;
+  min-width: 250px;
 
   flex-shrink: 0;
 
@@ -212,11 +241,16 @@
   background: #0d1218;
 
   border-right: 1px solid rgba(255, 255, 255, 0.08);
+
+  overflow: hidden;
 }
 
 
+/* SIDEBAR HEADER */
+
 .sidebar-header {
   height: 52px;
+  min-height: 52px;
 
   padding: 0 18px;
 
@@ -226,38 +260,43 @@
 
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 
-  color: #707887;
+  color: #737c8d;
 
   font-size: 10px;
-
   font-weight: 600;
 
   letter-spacing: 1px;
 }
 
-
 .user-count {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 6px;
+  border-radius: 7px;
 
-  background: rgba(59, 130, 246, 0.1);
+  background: rgba(59, 130, 246, 0.12);
 
   color: #60a5fa;
 
   font-size: 10px;
+  font-weight: 600;
 }
 
+
+/* USERS */
 
 .users {
-  padding: 10px;
-}
+  flex: 1;
 
+  padding: 10px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 
 .user {
   display: flex;
@@ -265,49 +304,55 @@
 
   gap: 10px;
 
+  width: 100%;
+
   padding: 9px;
 
-  border-radius: 8px;
+  border-radius: 9px;
 
-  transition: background 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
-
 
 .user:hover,
 .active-user {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.045);
 }
 
+.active-user {
+  box-shadow:
+    inset 2px 0 0 #3b82f6;
+}
+
+
+/* AVATAR */
 
 .avatar {
   width: 32px;
   height: 32px;
 
-  flex-shrink: 0;
+  min-width: 32px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 8px;
+  border-radius: 9px;
 
   font-size: 12px;
-
   font-weight: 600;
 }
-
 
 .avatar-blue {
   background: rgba(59, 130, 246, 0.15);
   color: #60a5fa;
 }
 
-
 .avatar-purple {
   background: rgba(139, 92, 246, 0.15);
   color: #a78bfa;
 }
-
 
 .avatar-green {
   background: rgba(34, 197, 94, 0.15);
@@ -315,22 +360,27 @@
 }
 
 
+/* USER DETAILS */
+
 .user-details {
+  min-width: 0;
+
   display: flex;
   flex-direction: column;
 
-  gap: 2px;
-
-  min-width: 0;
+  gap: 3px;
 }
 
-
 .user-name {
+  overflow: hidden;
+
   color: #d1d5db;
 
   font-size: 13px;
-}
 
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 
 .user-state {
   color: #596170;
@@ -338,18 +388,24 @@
   font-size: 10px;
 }
 
-
 .online-dot {
   width: 6px;
   height: 6px;
+
+  min-width: 6px;
 
   margin-left: auto;
 
   border-radius: 50%;
 
   background: #4ade80;
+
+  box-shadow:
+    0 0 6px rgba(74, 222, 128, 0.5);
 }
 
+
+/* LEAVE */
 
 .sidebar-bottom {
   margin-top: auto;
@@ -358,7 +414,6 @@
 
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
-
 
 .leave-button {
   width: 100%;
@@ -377,9 +432,11 @@
 
   cursor: pointer;
 
-  transition: all 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
-
 
 .leave-button:hover {
   color: #f87171;
@@ -390,34 +447,39 @@
 }
 
 
-/* ================= EDITOR ================= */
+/* =========================================================
+   EDITOR
+========================================================= */
 
 .editor-section {
   flex: 1;
 
   min-width: 0;
+  min-height: 0;
 
   display: flex;
   flex-direction: column;
 
   background: #11161d;
+
+  overflow: hidden;
 }
 
 
+/* EDITOR HEADER */
+
 .editor-header {
   height: 48px;
-
-  flex-shrink: 0;
+  min-height: 48px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-
   background: #0f141a;
-}
 
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
 
 .file-tab {
   height: 100%;
@@ -436,15 +498,12 @@
   font-size: 12px;
 }
 
-
 .js-icon {
   color: #facc15;
 
   font-size: 10px;
-
   font-weight: 700;
 }
-
 
 .editor-actions {
   display: flex;
@@ -455,7 +514,6 @@
   padding-right: 12px;
 }
 
-
 .language {
   color: #687181;
 
@@ -463,11 +521,18 @@
 }
 
 
+/* RUN BUTTON */
+
 .run-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
   padding: 7px 14px;
 
   border: none;
-
   border-radius: 6px;
 
   background: #16a34a;
@@ -475,42 +540,65 @@
   color: white;
 
   font-size: 11px;
-
   font-weight: 600;
 
   cursor: pointer;
 
-  transition: background 0.2s ease;
-}
+  box-shadow:
+    0 3px 10px rgba(22, 163, 74, 0.15);
 
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
 
 .run-button:hover {
   background: #22c55e;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 5px 14px rgba(34, 197, 94, 0.2);
 }
 
+.run-button:active {
+  transform: translateY(0);
+}
+
+
+/* MONACO */
 
 .editor-container {
   flex: 1;
 
   min-height: 0;
+  min-width: 0;
+
+  overflow: hidden;
 }
 
 
-/* ================= TERMINAL ================= */
+/* =========================================================
+   TERMINAL
+========================================================= */
 
 .terminal {
   height: 150px;
+  min-height: 150px;
 
   flex-shrink: 0;
 
+  background: #090d12;
+
   border-top: 1px solid rgba(255, 255, 255, 0.07);
 
-  background: #090d12;
+  overflow: hidden;
 }
-
 
 .terminal-header {
   height: 35px;
+  min-height: 35px;
 
   display: flex;
   align-items: center;
@@ -524,10 +612,8 @@
   color: #596170;
 
   font-size: 10px;
-
   font-weight: 600;
 }
-
 
 .terminal-active {
   height: 100%;
@@ -540,13 +626,11 @@
   border-bottom: 2px solid #3b82f6;
 }
 
-
 .terminal-status {
   margin-left: auto;
 
   color: #4ade80;
 }
-
 
 .terminal-content {
   padding: 12px 15px;
@@ -558,52 +642,87 @@
   color: #6b7280;
 }
 
-
 .terminal-content p {
   margin: 0;
 }
-
 
 .terminal-prompt {
   color: #4ade80;
 }
 
 
-/* =========================
+/* =========================================================
    TABLET
-========================= */
+========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
 
   .room-sidebar {
-    width: 210px;
+    width: 220px;
+    min-width: 220px;
   }
 
-  .room-info {
-    position: static;
-    transform: none;
-    margin-left: auto;
-    margin-right: 20px;
+  .room-header {
+    padding: 0 16px;
   }
 
 }
 
 
-/* =========================
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
 
 @media (max-width: 700px) {
 
   .room {
     height: 100dvh;
-    min-height: 100dvh;
-    overflow: hidden;
+  }
+
+
+  /* HEADER */
+
+  .room-header {
+    height: 58px;
+    min-height: 58px;
+
+    grid-template-columns: auto 1fr auto;
+
+    padding: 0 12px;
+  }
+
+  .room-logo {
+    gap: 8px;
+
+    font-size: 15px;
+  }
+
+  .room-logo-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+
+  /* ROOM CODE */
+
+  .room-info {
+    position: static;
+
+    justify-self: center;
+
+    transform: none;
+
+    margin: 0 8px;
+  }
+
+  .room-label {
+    display: none;
   }
 
   .room-code-button {
     padding: 5px 7px;
-    gap: 5px;
+
+    gap: 6px;
   }
 
   .room-code-button .room-id {
@@ -614,84 +733,86 @@
     font-size: 8px;
   }
 
-  /* =========================
-     HEADER
-  ========================= */
 
-  .room-header {
-    height: 58px;
-    padding: 0 12px;
-  }
-
-  .room-logo {
-    font-size: 15px;
-  }
-
-  .room-logo-icon {
-    width: 30px;
-    height: 30px;
-    font-size: 12px;
-  }
-
-  .room-info {
-    display: none;
-  }
+  /* STATUS */
 
   .room-status {
+    gap: 5px;
+
     font-size: 9px;
-    margin-left: auto;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
   }
 
 
-  /* =========================
-     MAIN
-  ========================= */
+  /* MAIN */
 
   .room-main {
     flex-direction: column;
+
     height: calc(100dvh - 58px);
+
     min-height: 0;
   }
 
 
-  /* =========================
-     SIDEBAR
-  ========================= */
+  /* COLLABORATORS */
 
   .room-sidebar {
     width: 100%;
-    height: 100px;
-    min-height: 100px;
-    flex-shrink: 0;
+    min-width: 0;
+
+    height: 94px;
+    min-height: 94px;
+
     border-right: none;
-    border-bottom: 1px solid rgba(255,255,255,.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .sidebar-header {
-    height: 36px;
-    padding: 0 14px;
+    height: 34px;
+    min-height: 34px;
+
+    padding: 0 12px;
   }
 
   .users {
+    flex: 1;
+
     display: flex;
+
     gap: 8px;
-    padding: 6px 10px;
+
+    padding: 5px 9px;
+
     overflow-x: auto;
     overflow-y: hidden;
   }
 
   .user {
-    min-width: 135px;
-    padding: 6px;
+    width: auto;
+
+    min-width: 140px;
+
+    height: 48px;
+
+    padding: 6px 8px;
+
+    flex-shrink: 0;
   }
 
   .avatar {
-    width: 26px;
-    height: 26px;
+    width: 27px;
+    height: 27px;
+
+    min-width: 27px;
   }
 
   .user-name {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .user-state {
@@ -703,33 +824,32 @@
   }
 
 
-  /* =========================
-     EDITOR
-  ========================= */
+  /* EDITOR */
 
   .editor-section {
     width: 100%;
-    min-height: 0;
+
     flex: 1;
+
+    min-height: 0;
   }
-
-
-  /* =========================
-     EDITOR HEADER
-  ========================= */
 
   .editor-header {
-    height: 42px;
+    height: 40px;
+    min-height: 40px;
   }
 
-.file-tab {
-  padding: 0 12px;
-  font-size: 11px;
-  gap: 7px;
-}
+  .file-tab {
+    padding: 0 11px;
+
+    gap: 7px;
+
+    font-size: 11px;
+  }
 
   .editor-actions {
-    gap: 7px;
+    gap: 6px;
+
     padding-right: 8px;
   }
 
@@ -737,109 +857,188 @@
     display: none;
   }
 
-.run-button {
-  padding: 6px 11px;
-  font-size: 10px;
-  border-radius: 6px;
-}
+  .run-button {
+    padding: 6px 11px;
 
-
-  /* =========================
-     EDITOR
-  ========================= */
-
-  .editor-container {
-    min-height: 0;
-    flex: 1;
+    font-size: 10px;
   }
 
 
-  /* =========================
-     TERMINAL
-  ========================= */
+  /* TERMINAL */
 
-.terminal {
-  height: 90px;
-  flex-shrink: 0;
-}
+  .terminal {
+    height: 82px;
+    min-height: 82px;
+  }
 
   .terminal-header {
-    height: 32px;
+    height: 30px;
+    min-height: 30px;
+
     gap: 14px;
+
     padding: 0 10px;
   }
 
   .terminal-content {
-    padding: 10px;
+    padding: 8px 10px;
+
     font-size: 10px;
   }
 
 }
 
 
-/* =========================
+/* =========================================================
    SMALL PHONES
-========================= */
+========================================================= */
 
 @media (max-width: 450px) {
 
+  /* HEADER */
+
   .room-header {
     height: 54px;
-    padding: 0 10px;
+    min-height: 54px;
+
+    padding: 0 9px;
   }
 
   .room-logo {
     gap: 7px;
+
     font-size: 14px;
   }
 
   .room-logo-icon {
     width: 28px;
     height: 28px;
+
+    border-radius: 8px;
   }
+
+  .room-info {
+    margin: 0 5px;
+  }
+
+  .room-code-button {
+    padding: 4px 6px;
+
+    gap: 5px;
+  }
+
+  .room-code-button .room-id {
+    font-size: 9px;
+
+    letter-spacing: 1px;
+  }
+
+  .copy-text {
+    display: none;
+  }
+
+  .room-status {
+    font-size: 8px;
+
+    letter-spacing: 0.8px;
+  }
+
+
+  /* MAIN */
 
   .room-main {
     height: calc(100dvh - 54px);
   }
 
+
+  /* USERS */
+
   .room-sidebar {
-    height: 110px;
-    min-height: 110px;
+    height: 88px;
+    min-height: 88px;
   }
 
   .sidebar-header {
-    height: 36px;
+    height: 32px;
+    min-height: 32px;
+
     padding: 0 10px;
   }
 
   .users {
-    padding: 6px 8px;
+    padding: 4px 8px;
+
+    gap: 7px;
   }
 
   .user {
-    min-width: 140px;
-    padding: 6px;
+    min-width: 130px;
+
+    height: 45px;
+
+    padding: 5px 7px;
   }
 
   .avatar {
-    width: 26px;
-    height: 26px;
+    width: 25px;
+    height: 25px;
+
+    min-width: 25px;
   }
 
   .user-name {
-    font-size: 11px;
+    font-size: 10px;
   }
 
+  .user-state {
+    font-size: 8px;
+  }
+
+
+  /* EDITOR */
+
   .editor-header {
-    height: 40px;
+    height: 38px;
+    min-height: 38px;
   }
 
   .file-tab {
-    padding: 0 10px;
+    padding: 0 9px;
+
+    font-size: 10px;
   }
 
+  .editor-actions {
+    padding-right: 6px;
+  }
+
+  .run-button {
+    padding: 5px 9px;
+
+    font-size: 9px;
+  }
+
+
+  /* TERMINAL */
+
   .terminal {
-    height: 95px;
+    height: 72px;
+    min-height: 72px;
+  }
+
+  .terminal-header {
+    height: 28px;
+    min-height: 28px;
+
+    padding: 0 8px;
+
+    font-size: 9px;
+  }
+
+  .terminal-content {
+    padding: 7px 8px;
+
+    font-size: 9px;
   }
 
 }
