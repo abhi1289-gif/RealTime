@@ -543,20 +543,264 @@
 }
 
 
-/* ================= RESPONSIVE ================= */
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+  .room-sidebar {
+    width: 210px;
+  }
+
+  .room-info {
+    position: static;
+    transform: none;
+    margin-left: auto;
+    margin-right: 20px;
+  }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 700px) {
 
-  .room-sidebar {
-    width: 190px;
+  .room {
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+
+
+  /* =========================
+     HEADER
+  ========================= */
+
+  .room-header {
+    height: 58px;
+    padding: 0 12px;
+  }
+
+  .room-logo {
+    font-size: 15px;
+  }
+
+  .room-logo-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
   }
 
   .room-info {
     display: none;
   }
 
+  .room-status {
+    font-size: 9px;
+    margin-left: auto;
+  }
+
+
+  /* =========================
+     MAIN
+  ========================= */
+
+  .room-main {
+    flex-direction: column;
+    height: calc(100dvh - 58px);
+    min-height: 0;
+  }
+
+
+  /* =========================
+     SIDEBAR
+  ========================= */
+
+  .room-sidebar {
+    width: 100%;
+    height: 125px;
+    min-height: 125px;
+    flex-shrink: 0;
+
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .sidebar-header {
+    height: 40px;
+    padding: 0 14px;
+  }
+
+  .users {
+    display: flex;
+    gap: 8px;
+    padding: 7px 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .user {
+    min-width: 150px;
+    padding: 7px;
+  }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  .user-name {
+    font-size: 12px;
+  }
+
+  .user-state {
+    font-size: 9px;
+  }
+
+  .sidebar-bottom {
+    display: none;
+  }
+
+
+  /* =========================
+     EDITOR
+  ========================= */
+
+  .editor-section {
+    width: 100%;
+    min-height: 0;
+    flex: 1;
+  }
+
+
+  /* =========================
+     EDITOR HEADER
+  ========================= */
+
+  .editor-header {
+    height: 42px;
+  }
+
+  .file-tab {
+    padding: 0 12px;
+    font-size: 11px;
+  }
+
+  .editor-actions {
+    gap: 7px;
+    padding-right: 8px;
+  }
+
   .language {
     display: none;
+  }
+
+  .run-button {
+    padding: 6px 10px;
+    font-size: 10px;
+  }
+
+
+  /* =========================
+     EDITOR
+  ========================= */
+
+  .editor-container {
+    min-height: 0;
+    flex: 1;
+  }
+
+
+  /* =========================
+     TERMINAL
+  ========================= */
+
+  .terminal {
+    height: 110px;
+    flex-shrink: 0;
+  }
+
+  .terminal-header {
+    height: 32px;
+    gap: 14px;
+    padding: 0 10px;
+  }
+
+  .terminal-content {
+    padding: 10px;
+    font-size: 10px;
+  }
+
+}
+
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media (max-width: 450px) {
+
+  .room-header {
+    height: 54px;
+    padding: 0 10px;
+  }
+
+  .room-logo {
+    gap: 7px;
+    font-size: 14px;
+  }
+
+  .room-logo-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .room-main {
+    height: calc(100dvh - 54px);
+  }
+
+  .room-sidebar {
+    height: 110px;
+    min-height: 110px;
+  }
+
+  .sidebar-header {
+    height: 36px;
+    padding: 0 10px;
+  }
+
+  .users {
+    padding: 6px 8px;
+  }
+
+  .user {
+    min-width: 140px;
+    padding: 6px;
+  }
+
+  .avatar {
+    width: 26px;
+    height: 26px;
+  }
+
+  .user-name {
+    font-size: 11px;
+  }
+
+  .editor-header {
+    height: 40px;
+  }
+
+  .file-tab {
+    padding: 0 10px;
+  }
+
+  .terminal {
+    height: 95px;
   }
 
 }
