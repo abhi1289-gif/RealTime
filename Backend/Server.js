@@ -131,65 +131,65 @@ socket.on("join-room", ({ roomId, username }) => {
      WHITEBOARD JOIN
   ======================================================= */
 
-  socket.on(
-    "join-whiteboard",
-    ({ roomId, username }) => {
+socket.on(
+  "join-whiteboard",
+  ({ roomId, username }) => {
 
-      roomTypes.set(roomId, "whiteboard")
+    console.log("================================")
+    console.log("WHITEBOARD JOIN EVENT")
+    console.log("Socket ID:", socket.id)
+    console.log("Room ID:", roomId)
+    console.log("Username:", username)
+    console.log("================================")
 
-      socket.join(roomId)
+    roomTypes.set(roomId, "whiteboard")
 
-      userRooms.set(
-        socket.id,
-        roomId
-      )
+    socket.join(roomId)
 
-      userNames.set(
-        socket.id,
-        username
-      )
+    userRooms.set(
+      socket.id,
+      roomId
+    )
 
+    userNames.set(
+      socket.id,
+      username
+    )
 
-      console.log(
-        `${username} (${socket.id}) joined whiteboard ${roomId}`
-      )
+    console.log(
+      `${username} (${socket.id}) joined whiteboard ${roomId}`
+    )
 
+    const room =
+      io.sockets.adapter.rooms.get(roomId)
 
-      const room =
-        io.sockets.adapter.rooms.get(roomId)
+    const users = room
+      ? Array.from(room).map((userId) => ({
+          id: userId,
+          username:
+            userNames.get(userId) || "Guest",
+        }))
+      : []
 
+    console.log(
+      "WHITEBOARD USERS:",
+      users
+    )
 
-      const users = room
-        ? Array.from(room).map((userId) => ({
-            id: userId,
-            username:
-              userNames.get(userId) ||
-              "Guest",
-          }))
-        : []
+    io.to(roomId).emit(
+      "room-users",
+      users
+    )
 
+    const existingData =
+      whiteboardData.get(roomId) || []
 
-      io.to(roomId).emit(
-        "room-users",
-        users
-      )
-
-
-      // Send current whiteboard
-      // to the new user
-
-      const existingData =
-        whiteboardData.get(roomId) || []
-
-
-      socket.emit(
-        "whiteboard-state",
-        existingData
-      )
-
-    }
-  )
-
+    socket.emit(
+      "whiteboard-state",
+      existingData
+    )
+  }
+)
 
   /* =======================================================
      WHITEBOARD DRAW
