@@ -5,7 +5,6 @@
 .create-room-page {
   width: 100%;
   min-height: 100dvh;
-
   display: flex;
   flex-direction: column;
 
@@ -50,12 +49,13 @@
 
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
+
+  box-sizing: border-box;
 }
 
 .create-logo {
   display: flex;
   align-items: center;
-
   gap: 11px;
 
   color: #f8fafc;
@@ -90,18 +90,18 @@
 }
 
 
-/* HOME BUTTON */
+/* =========================================================
+   HOME BUTTON
+========================================================= */
 
 .create-back {
   display: flex;
   align-items: center;
-
   gap: 6px;
 
   padding: 9px 14px;
 
   border: 1px solid rgba(255, 255, 255, 0.08);
-
   border-radius: 8px;
 
   background: rgba(255, 255, 255, 0.035);
@@ -140,12 +140,13 @@
   width: 100%;
 
   display: flex;
-  align-items: center;
   justify-content: center;
 
   padding: 70px 20px 90px;
 
   position: relative;
+
+  box-sizing: border-box;
 }
 
 
@@ -156,17 +157,17 @@
 
   position: absolute;
 
-  width: 350px;
-  height: 350px;
+  width: 420px;
+  height: 420px;
 
   left: 50%;
-  top: 50%;
+  top: 45%;
 
   transform: translate(-50%, -50%);
 
-  background: rgba(59, 130, 246, 0.08);
+  background: rgba(59, 130, 246, 0.07);
 
-  filter: blur(100px);
+  filter: blur(110px);
 
   border-radius: 50%;
 
@@ -175,115 +176,65 @@
 
 
 /* =========================================================
-   CARD
+   WRAPPER
 ========================================================= */
 
-.create-room-card {
-  position: relative;
-  z-index: 1;
-
+.create-room-wrapper {
   width: 100%;
-  max-width: 470px;
+  max-width: 1000px;
 
-  padding: 42px;
+  position: relative;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  z-index: 1;
+}
 
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.create-room-heading {
   text-align: center;
 
-  border: 1px solid rgba(255, 255, 255, 0.09);
-
-  border-radius: 22px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(20, 27, 38, 0.92),
-      rgba(10, 14, 21, 0.94)
-    );
-
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-
-  box-shadow:
-    0 30px 90px rgba(0, 0, 0, 0.42);
-
-  overflow: hidden;
+  margin-bottom: 42px;
 }
 
+.create-room-badge {
+  display: inline-block;
 
-/* Card top glow */
+  margin-bottom: 14px;
 
-.create-room-card::before {
-  content: "";
+  padding: 6px 12px;
 
-  position: absolute;
+  border: 1px solid rgba(96, 165, 250, 0.18);
 
-  width: 180px;
-  height: 180px;
+  border-radius: 999px;
 
-  top: -110px;
-  right: -70px;
-
-  border-radius: 50%;
-
-  background: rgba(59, 130, 246, 0.12);
-
-  filter: blur(20px);
-
-  pointer-events: none;
-}
-
-
-/* =========================================================
-   ICON
-========================================================= */
-
-.create-card-icon {
-  width: 62px;
-  height: 62px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-bottom: 25px;
-
-  border-radius: 17px;
-
-  background: rgba(59, 130, 246, 0.11);
-
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  background: rgba(59, 130, 246, 0.08);
 
   color: #60a5fa;
 
-  font-size: 30px;
+  font-size: 9px;
+  font-weight: 700;
 
-  box-shadow:
-    0 10px 30px rgba(59, 130, 246, 0.12);
+  letter-spacing: 1.5px;
 }
 
-
-/* =========================================================
-   TEXT
-========================================================= */
-
-.create-room-card h1 {
+.create-room-heading h1 {
   margin: 0;
 
   color: #f8fafc;
 
-  font-size: 30px;
+  font-size: 38px;
+
   line-height: 1.15;
 
   font-weight: 650;
 
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
 }
 
-.create-room-card h1 span {
+.create-room-heading h1 span {
   background: linear-gradient(
     90deg,
     #60a5fa,
@@ -296,59 +247,272 @@
   color: transparent;
 }
 
-.create-room-card p {
-  max-width: 350px;
+.create-room-heading p {
+  margin: 13px auto 0;
 
-  margin: 14px auto 30px;
+  max-width: 500px;
 
   color: #7f8999;
 
   font-size: 14px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   ROOM OPTIONS
+========================================================= */
+
+.create-room-options {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 24px;
+}
+
+
+/* =========================================================
+   OPTION CARD
+========================================================= */
+
+.create-option-card {
+  position: relative;
+
+  min-height: 390px;
+
+  padding: 32px;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20, 27, 38, 0.94),
+      rgba(10, 14, 21, 0.96)
+    );
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.35);
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.create-option-card:hover {
+  transform: translateY(-5px);
+
+  border-color: rgba(255, 255, 255, 0.15);
+
+  box-shadow:
+    0 35px 85px rgba(0, 0, 0, 0.45);
+}
+
+
+/* =========================================================
+   CARD GLOW
+========================================================= */
+
+.create-option-card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 220px;
+  height: 220px;
+
+  top: -130px;
+  right: -80px;
+
+  border-radius: 50%;
+
+  filter: blur(25px);
+
+  pointer-events: none;
+}
+
+
+/* CODE CARD GLOW */
+
+.code-room-card::before {
+  background: rgba(59, 130, 246, 0.15);
+}
+
+
+/* WHITEBOARD CARD GLOW */
+
+.whiteboard-room-card::before {
+  background: rgba(139, 92, 246, 0.16);
+}
+
+
+/* =========================================================
+   OPTION ICON
+========================================================= */
+
+.create-option-icon {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 24px;
+
+  border-radius: 16px;
+
+  background: rgba(59, 130, 246, 0.10);
+
+  border: 1px solid rgba(59, 130, 246, 0.20);
+
+  color: #60a5fa;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  box-shadow:
+    0 10px 30px rgba(59, 130, 246, 0.10);
+}
+
+
+/* WHITEBOARD ICON */
+
+.whiteboard-icon {
+  background: rgba(139, 92, 246, 0.10);
+
+  border-color: rgba(139, 92, 246, 0.20);
+
+  color: #a78bfa;
+
+  box-shadow:
+    0 10px 30px rgba(139, 92, 246, 0.10);
+}
+
+
+/* =========================================================
+   OPTION CONTENT
+========================================================= */
+
+.create-option-content h2 {
+  margin: 0;
+
+  color: #f8fafc;
+
+  font-size: 24px;
+
+  font-weight: 650;
+
+  letter-spacing: -0.5px;
+}
+
+.create-option-content p {
+  margin: 12px 0 0;
+
+  max-width: 390px;
+
+  color: #7f8999;
+
+  font-size: 13px;
 
   line-height: 1.7;
 }
 
 
 /* =========================================================
-   CREATE BUTTON
+   FEATURES
+========================================================= */
+
+.create-option-features {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  margin-top: 26px;
+
+  color: #aeb7c5;
+
+  font-size: 12px;
+}
+
+.create-option-features span {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+.create-option-features span::first-letter {
+  color: #4ade80;
+}
+
+
+/* =========================================================
+   BUTTONS
 ========================================================= */
 
 .create-room-button {
   width: 100%;
 
+  margin-top: auto;
+
   padding: 14px 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
 
   border: none;
 
   border-radius: 10px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #2563eb,
-      #3b82f6
-    );
-
   color: #ffffff;
 
-  font-size: 14px;
+  font-size: 13px;
+
   font-weight: 600;
 
   cursor: pointer;
 
-  box-shadow:
-    0 10px 30px rgba(37, 99, 235, 0.25);
-
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.create-room-button span {
+  font-size: 17px;
+
+  transition:
+    transform 0.2s ease;
 }
 
 .create-room-button:hover {
   transform: translateY(-2px);
+}
 
-  box-shadow:
-    0 14px 38px rgba(37, 99, 235, 0.38);
+.create-room-button:hover span {
+  transform: translateX(4px);
 }
 
 .create-room-button:active {
@@ -357,26 +521,79 @@
 
 
 /* =========================================================
-   ROOM CODE PREVIEW
+   CODE ROOM BUTTON
+========================================================= */
+
+.code-create-button {
+  margin-top: 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563eb,
+      #3b82f6
+    );
+
+  box-shadow:
+    0 10px 30px rgba(37, 99, 235, 0.25);
+}
+
+.code-create-button:hover {
+  box-shadow:
+    0 14px 38px rgba(37, 99, 235, 0.40);
+}
+
+
+/* =========================================================
+   WHITEBOARD BUTTON
+========================================================= */
+
+.whiteboard-create-button {
+  margin-top: 30px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #7c3aed,
+      #8b5cf6
+    );
+
+  box-shadow:
+    0 10px 30px rgba(124, 58, 237, 0.25);
+}
+
+.whiteboard-create-button:hover {
+  box-shadow:
+    0 14px 38px rgba(124, 58, 237, 0.40);
+}
+
+
+/* =========================================================
+   ROOM CODE INFO
 ========================================================= */
 
 .room-code-hint {
   display: flex;
+
   align-items: center;
   justify-content: center;
 
   gap: 7px;
 
-  margin-top: 18px;
+  margin-top: 25px;
 
   color: #596170;
 
   font-size: 10px;
+
+  text-align: center;
 }
 
 .room-code-hint-dot {
   width: 5px;
   height: 5px;
+
+  flex-shrink: 0;
 
   border-radius: 50%;
 
@@ -384,6 +601,42 @@
 
   box-shadow:
     0 0 6px rgba(74, 222, 128, 0.5);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+
+  .create-room-content {
+    padding: 55px 20px 70px;
+  }
+
+  .create-room-heading {
+    margin-bottom: 32px;
+  }
+
+  .create-room-heading h1 {
+    font-size: 34px;
+  }
+
+  .create-room-options {
+    grid-template-columns: 1fr;
+
+    max-width: 520px;
+
+    margin: 0 auto;
+
+    gap: 20px;
+  }
+
+  .create-option-card {
+    min-height: 350px;
+
+    padding: 30px;
+  }
 }
 
 
@@ -419,50 +672,98 @@
 
 
   .create-room-content {
-    align-items: flex-start;
-
     padding:
-      55px
+      45px
       16px
-      70px;
+      60px;
   }
 
 
-  .create-room-card {
-    max-width: 430px;
+  .create-room-heading {
+    margin-bottom: 28px;
+  }
 
-    padding: 32px 24px;
+  .create-room-badge {
+    font-size: 8px;
+
+    padding: 5px 10px;
+  }
+
+  .create-room-heading h1 {
+    font-size: 29px;
+  }
+
+  .create-room-heading p {
+    font-size: 13px;
+
+    margin-top: 10px;
+  }
+
+
+  .create-room-options {
+    gap: 17px;
+  }
+
+
+  .create-option-card {
+    min-height: auto;
+
+    padding: 25px 22px;
 
     border-radius: 19px;
   }
 
 
-  .create-card-icon {
-    width: 56px;
-    height: 56px;
+  .create-option-icon {
+    width: 52px;
+    height: 52px;
 
-    margin-bottom: 21px;
+    margin-bottom: 20px;
 
-    font-size: 27px;
+    border-radius: 14px;
+
+    font-size: 18px;
   }
 
 
-  .create-room-card h1 {
-    font-size: 27px;
+  .create-option-content h2 {
+    font-size: 21px;
+  }
+
+  .create-option-content p {
+    margin-top: 10px;
+
+    font-size: 12px;
+
+    line-height: 1.65;
   }
 
 
-  .create-room-card p {
-    margin-bottom: 27px;
+  .create-option-features {
+    margin-top: 22px;
 
-    font-size: 13px;
+    gap: 8px;
+
+    font-size: 11px;
   }
 
 
   .create-room-button {
-    padding: 13px 16px;
+    margin-top: 25px;
+
+    padding: 13px 15px;
+
+    font-size: 12px;
   }
 
+
+  .room-code-hint {
+    margin-top: 20px;
+
+    font-size: 9px;
+
+    padding: 0 10px;
+  }
 }
 
 
@@ -484,23 +785,58 @@
     padding: 7px 9px;
   }
 
+
   .create-room-content {
     padding:
-      40px
+      38px
       13px
-      55px;
+      50px;
   }
 
-  .create-room-card {
-    padding: 28px 20px;
+
+  .create-room-heading h1 {
+    font-size: 26px;
   }
 
-  .create-room-card h1 {
-    font-size: 24px;
-  }
-
-  .create-room-card p {
+  .create-room-heading p {
     font-size: 12px;
   }
 
+
+  .create-option-card {
+    padding: 23px 19px;
+
+    border-radius: 17px;
+  }
+
+
+  .create-option-icon {
+    width: 48px;
+    height: 48px;
+
+    margin-bottom: 18px;
+
+    font-size: 17px;
+  }
+
+
+  .create-option-content h2 {
+    font-size: 19px;
+  }
+
+  .create-option-content p {
+    font-size: 11px;
+  }
+
+
+  .create-option-features {
+    font-size: 10px;
+  }
+
+
+  .create-room-button {
+    padding: 12px 13px;
+
+    font-size: 11px;
+  }
 }

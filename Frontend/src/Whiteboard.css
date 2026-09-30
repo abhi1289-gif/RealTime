@@ -1,0 +1,1044 @@
+/* =========================================================
+   WHITEBOARD PAGE
+========================================================= */
+
+.whiteboard {
+  width: 100%;
+  height: 100dvh;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #070a0f;
+  color: #ffffff;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.whiteboard-header {
+  width: 100%;
+  height: 68px;
+  min-height: 68px;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+
+  padding: 0 24px;
+
+  box-sizing: border-box;
+
+  background: rgba(7, 10, 15, 0.94);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.whiteboard-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  color: #f8fafc;
+}
+
+.whiteboard-logo-icon {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #3b82f6,
+      #8b5cf6
+    );
+
+  font-size: 14px;
+  font-weight: 700;
+
+  box-shadow:
+    0 7px 22px rgba(59, 130, 246, 0.25);
+}
+
+
+/* =========================================================
+   ROOM INFO
+========================================================= */
+
+.whiteboard-room-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  min-width: 0;
+}
+
+.whiteboard-room-label {
+  color: #6b7280;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+}
+
+.whiteboard-room-code {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 7px 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.04);
+
+  color: #e5e7eb;
+
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.whiteboard-room-code:hover {
+  background: rgba(255, 255, 255, 0.08);
+
+  border-color: rgba(139, 92, 246, 0.35);
+}
+
+.whiteboard-room-code span {
+  color: #8b5cf6;
+
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.whiteboard-status {
+  justify-self: end;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #4ade80;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+.whiteboard-status-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #4ade80;
+
+  box-shadow:
+    0 0 9px rgba(74, 222, 128, 0.65);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.whiteboard-main {
+  flex: 1;
+
+  min-height: 0;
+
+  display: flex;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.whiteboard-sidebar {
+  width: 245px;
+  min-width: 245px;
+
+  display: flex;
+  flex-direction: column;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0c1119,
+      #090d14
+    );
+
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+
+/* =========================================================
+   SIDEBAR HEADER
+========================================================= */
+
+.whiteboard-sidebar-header {
+  height: 55px;
+  min-height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 17px;
+
+  box-sizing: border-box;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+  color: #697386;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 1.2px;
+}
+
+.whiteboard-user-count {
+  min-width: 22px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 6px;
+
+  background: rgba(139, 92, 246, 0.1);
+
+  color: #a78bfa;
+
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   USERS
+========================================================= */
+
+.whiteboard-users {
+  flex: 1;
+
+  overflow-y: auto;
+
+  padding: 12px 9px;
+}
+
+.whiteboard-user {
+  min-height: 54px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 8px;
+
+  margin-bottom: 4px;
+
+  border-radius: 9px;
+
+  transition:
+    background 0.2s ease;
+}
+
+.whiteboard-user:hover {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+.whiteboard-avatar {
+  width: 32px;
+  height: 32px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563eb,
+      #6366f1
+    );
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   USER DETAILS
+========================================================= */
+
+.whiteboard-user-details {
+  min-width: 0;
+
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.whiteboard-user-details span {
+  overflow: hidden;
+
+  color: #d1d5db;
+
+  font-size: 11px;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.whiteboard-user-details small {
+  color: #596170;
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   ONLINE DOT
+========================================================= */
+
+.whiteboard-online {
+  width: 6px;
+  height: 6px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #4ade80;
+
+  box-shadow:
+    0 0 7px rgba(74, 222, 128, 0.5);
+}
+
+
+/* =========================================================
+   SIDEBAR BOTTOM
+========================================================= */
+
+.whiteboard-sidebar-bottom {
+  padding: 14px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.whiteboard-sidebar-bottom button {
+  width: 100%;
+
+  padding: 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  color: #7f8999;
+
+  font-size: 11px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.whiteboard-sidebar-bottom button:hover {
+  background: rgba(255, 255, 255, 0.06);
+
+  color: #ffffff;
+
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+
+/* =========================================================
+   WORKSPACE
+========================================================= */
+
+.whiteboard-workspace {
+  flex: 1;
+
+  min-width: 0;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #e5e7eb;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   TOOLBAR
+========================================================= */
+
+.whiteboard-toolbar {
+  width: 100%;
+  min-height: 58px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 9px 14px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border-bottom: 1px solid #d1d5db;
+
+  color: #374151;
+
+  overflow-x: auto;
+}
+
+
+/* =========================================================
+   TOOL GROUP
+========================================================= */
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
+}
+
+.tool-button {
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding: 0 11px;
+
+  border: 1px solid transparent;
+
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: #6b7280;
+
+  font-size: 12px;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.tool-button:hover {
+  background: #f3f4f6;
+
+  color: #111827;
+}
+
+.tool-button.active {
+  background: #eef2ff;
+
+  border-color: #c7d2fe;
+
+  color: #4f46e5;
+}
+
+.tool-button:first-letter {
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.toolbar-divider {
+  width: 1px;
+  height: 28px;
+
+  flex-shrink: 0;
+
+  background: #e5e7eb;
+}
+
+
+/* =========================================================
+   COLOR
+========================================================= */
+
+.color-control {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  color: #6b7280;
+
+  font-size: 11px;
+
+  white-space: nowrap;
+}
+
+.color-control input {
+  width: 30px;
+  height: 30px;
+
+  padding: 2px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 7px;
+
+  background: #ffffff;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   SIZE
+========================================================= */
+
+.size-control {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  color: #6b7280;
+
+  font-size: 11px;
+
+  white-space: nowrap;
+}
+
+.size-control input[type="range"] {
+  width: 85px;
+
+  cursor: pointer;
+}
+
+.size-value {
+  min-width: 30px;
+
+  color: #374151;
+
+  font-family: monospace;
+
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   TOOLBAR SPACER
+========================================================= */
+
+.toolbar-spacer {
+  flex: 1;
+}
+
+
+/* =========================================================
+   CLEAR BUTTON
+========================================================= */
+
+.clear-board-button {
+  height: 36px;
+
+  flex-shrink: 0;
+
+  padding: 0 13px;
+
+  border: 1px solid #fecaca;
+
+  border-radius: 7px;
+
+  background: #fff1f2;
+
+  color: #dc2626;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.clear-board-button:hover {
+  background: #fee2e2;
+
+  border-color: #fca5a5;
+}
+
+
+/* =========================================================
+   CANVAS CONTAINER
+========================================================= */
+
+.whiteboard-canvas-container {
+  flex: 1;
+
+  min-height: 0;
+
+  position: relative;
+
+  padding: 20px;
+
+  background:
+    radial-gradient(
+      circle,
+      #d1d5db 1px,
+      transparent 1px
+    );
+
+  background-size: 20px 20px;
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+.whiteboard-canvas {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  background: #ffffff;
+
+  border-radius: 5px;
+
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.12);
+
+  cursor: crosshair;
+
+  touch-action: none;
+
+  user-select: none;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+.whiteboard-users::-webkit-scrollbar,
+.whiteboard-toolbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.whiteboard-users::-webkit-scrollbar-track,
+.whiteboard-toolbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.whiteboard-users::-webkit-scrollbar-thumb,
+.whiteboard-toolbar::-webkit-scrollbar-thumb {
+  background: #374151;
+
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 850px) {
+
+  .whiteboard-sidebar {
+    width: 200px;
+    min-width: 200px;
+  }
+
+  .whiteboard-toolbar {
+    gap: 8px;
+  }
+
+  .size-control input[type="range"] {
+    width: 65px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+  .whiteboard-header {
+    height: 60px;
+    min-height: 60px;
+
+    padding: 0 13px;
+  }
+
+  .whiteboard-logo {
+    gap: 7px;
+
+    font-size: 15px;
+  }
+
+  .whiteboard-logo-icon {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 8px;
+  }
+
+  .whiteboard-room-label {
+    display: none;
+  }
+
+  .whiteboard-room-code {
+    padding: 6px 8px;
+
+    font-size: 10px;
+  }
+
+  .whiteboard-room-code span {
+    font-size: 9px;
+  }
+
+  .whiteboard-status {
+    font-size: 8px;
+  }
+
+  .whiteboard-status-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+
+  /* MAIN */
+
+  .whiteboard-main {
+    flex-direction: column;
+  }
+
+
+  /* SIDEBAR */
+
+  .whiteboard-sidebar {
+    width: 100%;
+    min-width: 0;
+
+    height: 66px;
+    min-height: 66px;
+
+    flex-direction: row;
+
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .whiteboard-sidebar-header {
+    width: 105px;
+    min-width: 105px;
+    height: 100%;
+
+    padding: 0 10px;
+
+    border-bottom: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .whiteboard-users {
+    display: flex;
+
+    flex: 1;
+
+    padding: 7px 8px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .whiteboard-user {
+    min-width: 125px;
+    height: 48px;
+
+    margin: 0 3px;
+  }
+
+  .whiteboard-user-details {
+    max-width: 70px;
+  }
+
+  .whiteboard-sidebar-bottom {
+    width: 90px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 8px;
+
+    border-top: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .whiteboard-sidebar-bottom button {
+    padding: 8px 4px;
+
+    font-size: 9px;
+  }
+
+
+  /* TOOLBAR */
+
+  .whiteboard-toolbar {
+    min-height: 54px;
+
+    padding: 8px;
+
+    gap: 7px;
+  }
+
+  .tool-button {
+    height: 34px;
+
+    padding: 0 9px;
+
+    font-size: 11px;
+  }
+
+  .tool-button span {
+    display: none;
+  }
+
+  .toolbar-divider {
+    height: 25px;
+  }
+
+  .color-control > span {
+    display: none;
+  }
+
+  .size-control > span:first-child {
+    display: none;
+  }
+
+  .size-control input[type="range"] {
+    width: 65px;
+  }
+
+  .clear-board-button {
+    height: 34px;
+
+    padding: 0 9px;
+
+    font-size: 10px;
+  }
+
+
+  /* CANVAS */
+
+  .whiteboard-canvas-container {
+    padding: 10px;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media (max-width: 400px) {
+
+  .whiteboard-header {
+    padding: 0 9px;
+  }
+
+  .whiteboard-logo {
+    font-size: 13px;
+  }
+
+  .whiteboard-logo-icon {
+    width: 27px;
+    height: 27px;
+  }
+
+  .whiteboard-room-code {
+    max-width: 105px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+  }
+
+  .whiteboard-status {
+    display: none;
+  }
+
+
+  .whiteboard-sidebar {
+    height: 58px;
+    min-height: 58px;
+  }
+
+  .whiteboard-sidebar-header {
+    width: 85px;
+    min-width: 85px;
+
+    font-size: 8px;
+  }
+
+  .whiteboard-user {
+    min-width: 105px;
+  }
+
+  .whiteboard-avatar {
+    width: 27px;
+    height: 27px;
+
+    font-size: 10px;
+  }
+
+  .whiteboard-user-details span {
+    font-size: 9px;
+  }
+
+  .whiteboard-user-details small {
+    font-size: 8px;
+  }
+
+  .whiteboard-sidebar-bottom {
+    width: 72px;
+  }
+
+
+  .whiteboard-toolbar {
+    min-height: 50px;
+
+    padding: 6px;
+
+    gap: 5px;
+  }
+
+  .tool-button {
+    width: 34px;
+
+    padding: 0;
+  }
+
+  .color-control input {
+    width: 27px;
+    height: 27px;
+  }
+
+  .size-control input[type="range"] {
+    width: 55px;
+  }
+
+  .clear-board-button {
+    width: 34px;
+
+    padding: 0;
+
+    font-size: 0;
+  }
+
+  .clear-board-button::before {
+    content: "×";
+
+    font-size: 20px;
+  }
+
+
+  .whiteboard-canvas-container {
+    padding: 7px;
+  }
+}

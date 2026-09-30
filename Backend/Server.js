@@ -8,28 +8,11 @@ const app = express()
 const FRONTEND_URL =
   process.env.FRONTEND_URL || "http://localhost:5173"
 
-
-// =========================
-// CORS
-// =========================
-
-app.use(
-  cors({
-    origin: FRONTEND_URL,
-  })
-)
-
-
-// =========================
-// HTTP SERVER
-// =========================
+app.use(cors({
+  origin: FRONTEND_URL,
+}))
 
 const server = http.createServer(app)
-
-
-// =========================
-// SOCKET.IO
-// =========================
 
 const io = new Server(server, {
   cors: {
@@ -39,74 +22,92 @@ const io = new Server(server, {
 })
 
 
-// socket.id -> roomId
-const userRooms = new Map()
+/* =========================================================
+   ROOM DATA
+========================================================= */
 
-// socket.id -> username
+const userRooms = new Map()
 const userNames = new Map()
 
-// roomId -> current code
+// Code rooms
 const roomCodes = new Map()
 
+// Whiteboard rooms
+const whiteboardData = new Map()
+
+// Stores whether a room is code or whiteboard
+const roomTypes = new Map()
+
+
+/* =========================================================
+   SOCKET CONNECTION
+========================================================= */
 
 io.on("connection", (socket) => {
 
   console.log("User connected:", socket.id)
 
 
-  // =========================
-  // JOIN ROOM
-  // =========================
+  /* =======================================================
+     CODE ROOM
+  ======================================================= */
 
-  socket.on("join-room", ({ roomId, username }) => {
+socket.on("join-room", ({ roomId, username }) => {
 
-    socket.join(roomId)
-
-    userRooms.set(socket.id, roomId)
-    userNames.set(socket.id, username)
-
-    console.log(
-      `${username} (${socket.id}) joined room ${roomId}`
-    )
-
-
-    // Get all users in the room
-    const room =
-      io.sockets.adapter.rooms.get(roomId)
-
-    const users = room
-      ? Array.from(room).map((userId) => ({
-          id: userId,
-          username:
-            userNames.get(userId) || "Guest",
-        }))
-      : []
-
-
-    // Send users to everyone
-    io.to(roomId).emit(
-      "room-users",
-      users
-    )
-
-
-    // If room already has code,
-    // send it ONLY to the new user
-    if (roomCodes.has(roomId)) {
-
-      socket.emit(
-        "code-update",
-        roomCodes.get(roomId)
-      )
-
+  console.log(
+    "JOIN ROOM EVENT:",
+    {
+      socketId: socket.id,
+      roomId,
+      username,
     }
+  )
 
-  })
+  roomTypes.set(roomId, "code")
+
+  socket.join(roomId)
+
+  userRooms.set(socket.id, roomId)
+  userNames.set(socket.id, username)
+
+  console.log(
+    `${username} (${socket.id}) joined room ${roomId}`
+  )
+
+  const room =
+    io.sockets.adapter.rooms.get(roomId)
+
+  const users = room
+    ? Array.from(room).map((userId) => ({
+        id: userId,
+        username:
+          userNames.get(userId) || "Guest",
+      }))
+    : []
+
+  console.log(
+    "USERS IN ROOM:",
+    roomId,
+    users
+  )
+
+  io.to(roomId).emit(
+    "room-users",
+    users
+  )
+
+  if (roomCodes.has(roomId)) {
+    socket.emit(
+      "code-update",
+      roomCodes.get(roomId)
+    )
+  }
+})
 
 
-  // =========================
-  // CODE CHANGE
-  // =========================
+  /* =======================================================
+     CODE CHANGE
+  ======================================================= */
 
   socket.on(
     "code-change",
@@ -116,27 +117,144 @@ io.on("connection", (socket) => {
         `Code changed in room: ${roomId}`
       )
 
-      // Save latest code
-      roomCodes.set(
-        roomId,
-        code
+      roomCodes.set(roomId, code)
+
+      socket
+        .to(roomId)
+        .emit("code-update", code)
+
+    }
+  )
+
+
+  /* =======================================================
+     WHITEBOARD JOIN
+  ======================================================= */
+
+  socket.on(
+    "join-whiteboard",
+    ({ roomId, username }) => {
+
+      roomTypes.set(roomId, "whiteboard")
+
+      socket.join(roomId)
+
+      userRooms.set(
+        socket.id,
+        roomId
       )
 
-      // Send to everyone except sender
+      userNames.set(
+        socket.id,
+        username
+      )
+
+
+      console.log(
+        `${username} (${socket.id}) joined whiteboard ${roomId}`
+      )
+
+
+      const room =
+        io.sockets.adapter.rooms.get(roomId)
+
+
+      const users = room
+        ? Array.from(room).map((userId) => ({
+            id: userId,
+            username:
+              userNames.get(userId) ||
+              "Guest",
+          }))
+        : []
+
+
+      io.to(roomId).emit(
+        "room-users",
+        users
+      )
+
+
+      // Send current whiteboard
+      // to the new user
+
+      const existingData =
+        whiteboardData.get(roomId) || []
+
+
+      socket.emit(
+        "whiteboard-state",
+        existingData
+      )
+
+    }
+  )
+
+
+  /* =======================================================
+     WHITEBOARD DRAW
+  ======================================================= */
+
+  socket.on(
+    "whiteboard-draw",
+    ({ roomId, line }) => {
+
+      if (!whiteboardData.has(roomId)) {
+
+        whiteboardData.set(
+          roomId,
+          []
+        )
+
+      }
+
+
+      whiteboardData
+        .get(roomId)
+        .push(line)
+
+
+      // Send drawing to everyone
+      // except sender
+
       socket
         .to(roomId)
         .emit(
-          "code-update",
-          code
+          "whiteboard-draw",
+          line
         )
 
     }
   )
 
 
-  // =========================
-  // DISCONNECT
-  // =========================
+  /* =======================================================
+     WHITEBOARD CLEAR
+  ======================================================= */
+
+  socket.on(
+    "whiteboard-clear",
+    ({ roomId }) => {
+
+      whiteboardData.set(
+        roomId,
+        []
+      )
+
+
+      // Clear everyone's canvas
+
+      io.to(roomId).emit(
+        "whiteboard-clear"
+      )
+
+    }
+  )
+
+
+  /* =======================================================
+     DISCONNECT
+  ======================================================= */
 
   socket.on("disconnect", () => {
 
@@ -155,19 +273,27 @@ io.on("connection", (socket) => {
 
     if (roomId) {
 
-      userRooms.delete(socket.id)
-      userNames.delete(socket.id)
+      userRooms.delete(
+        socket.id
+      )
+
+      userNames.delete(
+        socket.id
+      )
 
 
       const room =
-        io.sockets.adapter.rooms.get(roomId)
+        io.sockets.adapter.rooms.get(
+          roomId
+        )
 
 
       const users = room
         ? Array.from(room).map((userId) => ({
             id: userId,
             username:
-              userNames.get(userId) || "Guest",
+              userNames.get(userId) ||
+              "Guest",
           }))
         : []
 
@@ -178,12 +304,18 @@ io.on("connection", (socket) => {
       )
 
 
-      // Delete empty room's code
+      // Delete room data when
+      // everyone has left
+
       if (!room || room.size === 0) {
 
-        roomCodes.delete(roomId)
+      roomCodes.delete(roomId)
 
-      }
+      whiteboardData.delete(roomId)
+
+      roomTypes.delete(roomId)
+
+    }
 
     }
 
@@ -191,13 +323,34 @@ io.on("connection", (socket) => {
 
 })
 
+app.get("/room/:roomId/type", (req, res) => {
 
-// =========================
-// START SERVER
-// =========================
+  const { roomId } = req.params
+
+  const type = roomTypes.get(roomId)
+
+  if (!type) {
+
+    return res.status(404).json({
+      message: "Room not found",
+    })
+
+  }
+
+  res.json({
+    type,
+  })
+
+})
+
+
+/* =========================================================
+   START SERVER
+========================================================= */
 
 const PORT =
   process.env.PORT || 5000
+
 
 server.listen(
   PORT,

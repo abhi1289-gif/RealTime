@@ -25,12 +25,30 @@ function CreateRoom() {
     sessionStorage.getItem("username") ||
     "Guest"
 
-  const handleCreateRoom = () => {
+  const saveUsername = () => {
+    sessionStorage.setItem("username", username)
+  }
+
+  // CODE ROOM
+  const handleCreateCodeRoom = () => {
     const roomCode = generateRoomCode()
 
-    sessionStorage.setItem("username", username)
+    saveUsername()
 
     navigate(`/room/${roomCode}`, {
+      state: {
+        username,
+      },
+    })
+  }
+
+  // WHITEBOARD ROOM
+  const handleCreateWhiteboardRoom = () => {
+    const roomCode = generateRoomCode()
+
+    saveUsername()
+
+    navigate(`/whiteboard/${roomCode}`, {
       state: {
         username,
       },
@@ -40,6 +58,7 @@ function CreateRoom() {
   return (
     <div className="create-room-page">
 
+      {/* HEADER */}
       <header className="create-header">
 
         <div className="create-logo">
@@ -60,34 +79,137 @@ function CreateRoom() {
       </header>
 
 
+      {/* MAIN */}
       <main className="create-room-content">
 
-        <div className="create-room-card">
+        <div className="create-room-wrapper">
 
-          <div className="create-card-icon">
-            +
+          {/* TITLE */}
+          <div className="create-room-heading">
+
+            <span className="create-room-badge">
+              COLLABORATIVE WORKSPACE
+            </span>
+
+            <h1>
+              Create a <span>Room</span>
+            </h1>
+
+            <p>
+              Choose how you want to collaborate with
+              your teammates.
+            </p>
+
           </div>
 
-          <h1>
-            Create a <span>Room</span>
-          </h1>
 
-          <p>
-            Start a new collaborative coding session
-            and invite your teammates to work together
-            in a shared real-time editor.
-          </p>
+          {/* OPTIONS */}
+          <div className="create-room-options">
 
-          <button
-            className="create-room-button"
-            onClick={handleCreateRoom}
-          >
-            Create Room
-          </button>
 
+            {/* CODE ROOM */}
+            <div className="create-option-card code-room-card">
+
+              <div className="create-option-icon">
+                &lt;/&gt;
+              </div>
+
+              <div className="create-option-content">
+
+                <h2>
+                  Code Room
+                </h2>
+
+                <p>
+                  Write and edit code together in a
+                  real-time collaborative editor.
+                </p>
+
+              </div>
+
+              <div className="create-option-features">
+
+                <span>
+                  ✓ Live code editing
+                </span>
+
+                <span>
+                  ✓ Multiple collaborators
+                </span>
+
+                <span>
+                  ✓ Monaco Editor
+                </span>
+
+              </div>
+
+              <button
+                className="create-room-button code-create-button"
+                onClick={handleCreateCodeRoom}
+              >
+                Create Code Room
+                <span>→</span>
+              </button>
+
+            </div>
+
+
+            {/* WHITEBOARD ROOM */}
+            <div className="create-option-card whiteboard-room-card">
+
+              <div className="create-option-icon whiteboard-icon">
+                ✦
+              </div>
+
+              <div className="create-option-content">
+
+                <h2>
+                  Whiteboard Room
+                </h2>
+
+                <p>
+                  Draw, sketch, brainstorm and collaborate
+                  visually with your teammates.
+                </p>
+
+              </div>
+
+              <div className="create-option-features">
+
+                <span>
+                  ✓ Real-time drawing
+                </span>
+
+                <span>
+                  ✓ Multiple collaborators
+                </span>
+
+                <span>
+                  ✓ Interactive canvas
+                </span>
+
+              </div>
+
+              <button
+                className="create-room-button whiteboard-create-button"
+                onClick={handleCreateWhiteboardRoom}
+              >
+                Create Whiteboard
+                <span>→</span>
+              </button>
+
+            </div>
+
+
+          </div>
+
+          {/* ROOM CODE INFO */}
           <div className="room-code-hint">
             <span className="room-code-hint-dot"></span>
-            A unique room code will be generated
+
+            A unique room code will be generated for your
+            session
+
           </div>
 
         </div>

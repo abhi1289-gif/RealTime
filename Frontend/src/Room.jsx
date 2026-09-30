@@ -67,87 +67,115 @@ function Room() {
   // SOCKET CONNECTION
   // =========================
 
-  useEffect(() => {
+useEffect(() => {
+
+  const joinRoom = () => {
 
     console.log(
-      "Joining room as:",
+      "Joining code room:",
+      roomId,
       username
     )
-
 
     socket.emit("join-room", {
       roomId,
       username,
     })
 
+  }
 
-    // USERS
-    const handleUsers = (users) => {
 
-      console.log(
-        "Users in room:",
-        users
+  // USERS
+  const handleUsers = (users) => {
+
+    console.log(
+      "CODE ROOM USERS RECEIVED:",
+      users
+    )
+
+    setUsers(users)
+
+  }
+
+
+  // CODE
+  const handleCodeUpdate = (newCode) => {
+
+    console.log(
+      "Received code update"
+    )
+
+    if (!editorRef.current) {
+      return
+    }
+
+    const currentCode =
+      editorRef.current.getValue()
+
+    if (currentCode !== newCode) {
+
+      editorRef.current.setValue(
+        newCode
       )
-
-      setUsers(users)
 
     }
 
-
-    // CODE
-    const handleCodeUpdate = (newCode) => {
-
-      console.log(
-        "Received code update"
-      )
+  }
 
 
-      if (!editorRef.current) {
-        return
-      }
+  /* ================================================
+     LISTEN FIRST
+  ================================================ */
+
+  socket.on(
+    "room-users",
+    handleUsers
+  )
+
+  socket.on(
+    "code-update",
+    handleCodeUpdate
+  )
 
 
-      const currentCode =
-        editorRef.current.getValue()
+  /* ================================================
+     JOIN AFTER CONNECTION
+  ================================================ */
+
+  if (socket.connected) {
+
+    joinRoom()
+
+  } else {
+
+    socket.once(
+      "connect",
+      joinRoom
+    )
+
+  }
 
 
-      if (currentCode !== newCode) {
+  return () => {
 
-        editorRef.current.setValue(
-          newCode
-        )
-
-      }
-
-    }
-
-
-    socket.on(
+    socket.off(
       "room-users",
       handleUsers
     )
 
-    socket.on(
+    socket.off(
       "code-update",
       handleCodeUpdate
     )
 
+    socket.off(
+      "connect",
+      joinRoom
+    )
 
-    return () => {
+  }
 
-      socket.off(
-        "room-users",
-        handleUsers
-      )
-
-      socket.off(
-        "code-update",
-        handleCodeUpdate
-      )
-
-    }
-
-  }, [roomId, username])
+}, [roomId, username])
 
 
   // =========================

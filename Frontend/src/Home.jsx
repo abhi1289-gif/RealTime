@@ -9,25 +9,88 @@ function Home() {
 
   const [roomCode, setRoomCode] = useState('')
 
-  const handleJoinRoom = () => {
+const handleJoinRoom = async () => {
 
-  const code = roomCode.trim()
+  const code = roomCode.trim().toUpperCase()
+  const name = username.trim()
 
-  if (!username.trim() || !code) {
+  if (!name || !code) {
     return
   }
 
   sessionStorage.setItem(
     "username",
-    username.trim()
+    name
   )
 
-  navigate(`/room/${code}`, {
-    state: {
-      username: username.trim()
-    }
-  })
+  try {
 
+    const response = await fetch(
+      `${import.meta.env.VITE_SOCKET_URL}/room/${code}/type`
+    )
+
+    if (!response.ok) {
+
+      alert("Room not found")
+
+      return
+    }
+
+    const data = await response.json()
+
+    console.log(
+      "Room type:",
+      data.type
+    )
+
+
+    /* ==========================================
+       WHITEBOARD
+    ========================================== */
+
+    if (data.type === "whiteboard") {
+
+      navigate(
+        `/whiteboard/${code}`,
+        {
+          state: {
+            username: name,
+          },
+        }
+      )
+
+    }
+
+
+    /* ==========================================
+       CODE ROOM
+    ========================================== */
+
+    else {
+
+      navigate(
+        `/room/${code}`,
+        {
+          state: {
+            username: name,
+          },
+        }
+      )
+
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Failed to check room:",
+      error
+    )
+
+    alert(
+      "Could not connect to server"
+    )
+
+  }
 }
 
   return (
